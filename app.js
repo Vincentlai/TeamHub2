@@ -3,8 +3,8 @@
  */
 var express = require('express');
 var app = express();
+var bodyParser = require('body-parser');
 var cookieParser = require('cookie-parser');
-var connect = require('connect');
 var port = process.env.PORT || 8080;
 var path = require('path');
 
@@ -12,10 +12,10 @@ var path = require('path');
 app.use(express.static(__dirname + '/public'));
 app.use(express.static(path.join(__dirname + '/views')));
 app.use(express.static(__dirname + '/bower_components'));
-app.use(connect.logger('dev')); 
-app.use(connect.json()); 
-app.use(connect.urlencoded());
+
 app.use(cookieParser());
+app.use(bodyParser.json());
+app.use(bodyParser.urlencoded({ extended: true }));
 
 var session = require("express-session")({
     secret: "aacd4d61-b4ee-4790-9faa-48236449b9d6",
@@ -28,7 +28,6 @@ var session = require("express-session")({
 app.use(session);
 
 app.set('views', path.join(__dirname, 'views'));
-app.set('view engine', 'ejs');
 
 //create a new route file
 var userRoutes = require('./routes/userRoutes');

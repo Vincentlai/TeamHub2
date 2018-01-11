@@ -188,7 +188,6 @@ exports.login = function (sess, email, password, callback) {
     });
 }
 
-
 exports.logout = function (sess, callback) {
     if (sess.user_id !== undefined) {
         sess.destroy(function (err) {
